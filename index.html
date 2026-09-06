@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scarlet.tikSl.com - TikTok Downloader Premium</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Lottie Player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Vanilla Tilt -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+</head>
+<body class="dark-mode">
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor-dot" id="cursorDot"></div>
+  <div class="custom-cursor-outline" id="cursorOutline"></div>
+
+  <!-- Video Background -->
+  <div class="video-bg-container">
+    <video autoplay loop muted playsinline id="bgVideo">
+      <source src="https://files.catbox.moe/lj5x8x.mp4" type="video/mp4">
+      Browser Anda tidak mendukung video background.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- Page Transition Overlay -->
+  <div class="page-transition-overlay" id="pageTransition"></div>
+
+  <!-- Navbar -->
+  <header class="navbar glass-panel">
+    <div class="logo-container">
+      <h1 class="logo-text" id="logoText" data-scramble="Scarlet.tikSl">Scarlet.tikSl</h1>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-icon magnetic-btn" id="themeToggle" title="Toggle Tema">
+        <i data-lucide="sun" class="sun-icon"></i>
+        <i data-lucide="moon" class="moon-icon"></i>
+      </button>
+      <button class="btn btn-icon magnetic-btn" id="cmdPaletteBtn" title="Command Palette (Ctrl+K)">
+        <i data-lucide="terminal"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <!-- Hero & Downloader Section -->
+    <section class="downloader-card glass-panel tilt-element" data-tilt data-tilt-max="7" data-tilt-glare data-tilt-max-glare="0.2">
+      <div class="badge-status" id="userTierBadge">
+        <span class="status-dot"></span>
+        <span id="tierText">Free Tier (Fitur Terbatas)</span>
+      </div>
+
+      <h2 class="hero-title">TikTok Video Downloader</h2>
+      <p class="hero-subtitle">Unduh video TikTok tanpa watermark dengan kualitas tinggi & cepat</p>
+
+      <!-- Tombol Premium Tepat di Atas Input Text -->
+      <div class="premium-btn-wrapper">
+        <button class="btn btn-primary magnetic-btn ripple-btn" id="premiumBtn">
+          <i data-lucide="crown"></i>
+          <span>Premium</span>
+        </button>
+      </div>
+
+      <!-- Input Section -->
+      <div class="input-group glass-panel">
+        <i data-lucide="link-2" class="input-icon"></i>
+        <input type="text" id="tiktokUrl" class="url-input" placeholder="Scarlet Glass Liliya" autocomplete="off">
+        <button class="btn btn-accent magnetic-btn ripple-btn morph-btn" id="downloadBtn">
+          <span class="btn-text">Proses</span>
+          <i data-lucide="arrow-right" class="btn-icon-right"></i>
+        </button>
+      </div>
+
+      <!-- Settings / Options -->
+      <div class="download-options">
+        <div class="option-group">
+          <label><i data-lucide="tv"></i> Resolusi:</label>
+          <select id="resSelect" class="glass-select">
+            <option value="720p">720p (Standar)</option>
+            <option value="1080p" disabled id="opt1080">1080p HD (🔒 Premium)</option>
+          </select>
+        </div>
+        <div class="option-group">
+          <label><i data-lucide="gauge"></i> Frame Rate:</label>
+          <select id="fpsSelect" class="glass-select">
+            <option value="30fps">30 FPS</option>
+            <option value="60fps" disabled id="opt60">60 FPS (🔒 Premium)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Loader & Lottie Animation -->
+      <div class="loader-container hidden" id="loader">
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_usmfx6bp.json" background="transparent" speed="1" style="width: 120px; height: 120px;" loop autoplay></lottie-player>
+        <p class="loader-text">Memproses video via TikWM API...</p>
+      </div>
+
+      <!-- Download Result Section -->
+      <div class="result-container hidden" id="resultContainer">
+        <div class="result-preview">
+          <img id="videoCover" src="" alt="Cover Video" class="video-cover">
+          <div class="video-meta">
+            <h3 id="videoTitle">Judul Video TikTok</h3>
+            <p id="videoAuthor">@username</p>
+            <div class="result-badges">
+              <span class="badge" id="resBadge">720p</span>
+              <span class="badge" id="fpsBadge">30fps</span>
+            </div>
+          </div>
+        </div>
+        <div class="result-actions">
+          <a id="dlNoWm" href="#" target="_blank" class="btn btn-success magnetic-btn ripple-btn">
+            <i data-lucide="download"></i> Unduh No Watermark
+          </a>
+          <a id="dlMusic" href="#" target="_blank" class="btn btn-secondary magnetic-btn ripple-btn">
+            <i data-lucide="music"></i> Unduh MP3 Audio
+          </a>
+        </div>
+      </div>
+
+      <!-- Ad Banner (Free Tier Only) -->
+      <div class="ad-banner glass-panel" id="adBanner">
+        <div class="ad-content">
+          <i data-lucide="megaphon"></i>
+          <span>Iklan: Dapatkan Token Premium "Glass5522" untuk Hilangkan Iklan & Buka 1080p/60fps!</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Showcase -->
+    <section class="features-grid">
+      <div class="feature-card glass-panel scroll-reveal">
+        <i data-lucide="zap" class="feature-icon"></i>
+        <h3>Proses Super Cepat</h3>
+        <p>Integrasi langsung dengan TikWM API untuk hasil instan tanpa antrean.</p>
+      </div>
+      <div class="feature-card glass-panel scroll-reveal">
+        <i data-lucide="sparkles" class="feature-icon"></i>
+        <h3>Kualitas Ultra HD</h3>
+        <p>Dukungan download hingga resolusi 1080p & 60 FPS untuk member Premium.</p>
+      </div>
+      <div class="feature-card glass-panel scroll-reveal">
+        <i data-lucide="shield-check" class="feature-icon"></i>
+        <h3>Bebas Iklan Premium</h3>
+        <p>Nikmati pengalaman bersih tanpa gangguan iklan banner & pop-up.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Token Premium -->
+  <div class="modal-overlay hidden" id="premiumModal">
+    <div class="modal-content glass-panel tilt-element" data-tilt data-tilt-max="5">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <i data-lucide="crown" class="modal-crown-icon"></i>
+      <h2>Aktivasi Premium</h2>
+      <p>Masukkan token rahasia untuk membuka akses fitur 1080p, 60fps & Bebas Iklan.</p>
+      
+      <div class="input-group glass-panel modal-input">
+        <i data-lucide="key" class="input-icon"></i>
+        <input type="password" id="tokenInput" class="url-input" placeholder="Masukkan Token Rahasia...">
+        <button class="btn btn-accent magnetic-btn ripple-btn" id="submitTokenBtn">
+          Aktivasi
+        </button>
+      </div>
+      <p class="modal-hint">Hint: Token hanya diketahui oleh pemilik platform.</p>
+    </div>
+  </div>
+
+  <!-- Command Palette Overlay -->
+  <div class="cmd-overlay hidden" id="cmdOverlay">
+    <div class="cmd-box glass-panel">
+      <div class="cmd-header">
+        <i data-lucide="search"></i>
+        <input type="text" id="cmdInput" placeholder="Ketik perintah atau cari (contoh: theme, download, premium)...">
+        <span class="cmd-esc">ESC</span>
+      </div>
+      <ul class="cmd-list" id="cmdList">
+        <li data-action="theme"><i data-lucide="sun-moon"></i> Toggle Dark/Light Mode</li>
+        <li data-action="premium"><i data-lucide="crown"></i> Buka Modal Token Premium</li>
+        <li data-action="clear"><i data-lucide="trash-2"></i> Bersihkan Input URL</li>
+        <li data-action="focus"><i data-lucide="link"></i> Fokus ke Input Download</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Scarlet.tikSl.com - All Rights Reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
